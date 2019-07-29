@@ -1,13 +1,15 @@
 package com.purchaseorder.dataservice.services;
 
 import com.purchaseorder.dataservice.model.User;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import com.purchaseorder.dataservice.model.UserLogin;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
+
+import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
 @RequestMapping("/auth")
@@ -20,5 +22,17 @@ public class AuthenticationService {
     @RequestMapping(method = RequestMethod.GET)
     public List<User> allUsers() {
         return userList;
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST
+    )
+    public ResponseEntity<User> byName(@RequestBody UserLogin userLogin) {
+        Optional<User> user = userList.stream()
+                .filter(p -> p.getNnumber().equals(userLogin.getNnumber()))
+                .findFirst();
+
+        return user.map(ResponseEntity::ok)
+                .orElse(notFound().build());
     }
 }
