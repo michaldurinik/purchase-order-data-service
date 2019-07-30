@@ -4,6 +4,7 @@ import com.purchaseorder.dataservice.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import javax.crypto.SecretKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import static com.purchaseorder.dataservice.model.User.userType.*;
 
 @Configuration
 public class UserConfig {
+
+    SecretKey secret;
     @Bean(name = "userList")
     public List<User> function() {
         List<User> userList = new ArrayList<>();

@@ -7,4 +7,8 @@ public class UserLogin {
     public String getNnumber() {
         return nnumber;
     }
+
+    public String getPassword() {
+        return password;
+    }
 }

@@ -1,13 +1,16 @@
 package com.purchaseorder.dataservice.model;
 
+import javax.crypto.SecretKey;
+
 public class User {
     public enum userType {Normal, Approver, Finance}
 
     private String nnumber;
     private String name;
     private String email;
-    private boolean isAuthenticated;
+    private boolean isAuthenticated = false;
     private Enum userType;
+    private String secret;
 
     public User(String nnumber, String name, String email, Boolean isAuthenticated, Enum userType) {
         this.nnumber = nnumber;
@@ -15,6 +18,18 @@ public class User {
         this.email = email;
         this.isAuthenticated = isAuthenticated;
         this.userType = userType;
+        //this.secret = secret;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "nnumber='" + nnumber + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", isAuthenticated=" + isAuthenticated +
+                ", userType=" + userType +
+                '}';
     }
 
     public String getNnumber() {
@@ -45,8 +60,8 @@ public class User {
         return isAuthenticated;
     }
 
-    public void setAuthenticated(boolean authenticated) {
-        isAuthenticated = authenticated;
+    public void authenticate() {
+        isAuthenticated = true;
     }
 
     public Enum getUserType() {
@@ -55,6 +70,14 @@ public class User {
 
     public void setUserType(Enum userType) {
         this.userType = userType;
+    }
+
+    public String getSecret() {
+        return secret;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 }
 
