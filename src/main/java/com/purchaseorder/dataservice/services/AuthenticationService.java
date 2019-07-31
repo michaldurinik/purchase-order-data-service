@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.purchaseorder.dataservice.services.SecretGenerator.generateSecret;
+import static com.purchaseorder.dataservice.services.SecretGenerator.printKey;
 import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
@@ -37,13 +38,20 @@ public class AuthenticationService {
     @RequestMapping(
             method = RequestMethod.POST
     )
-    public ResponseEntity<User> byName(@RequestBody LoginUser loginUser, StoredPasswords storedPasswords) {
+    public ResponseEntity<User> byName(@RequestBody LoginUser loginUser,
+                                       StoredPasswords storedPasswords,
+                                       LoggedUsers loggedUsers) {
 
         Optional<User> currentUser = findUser(loginUser.getNnumber());
 
         if (storedPasswords.isValid(loginUser.getNnumber(), loginUser.getPassword())) {
             currentUser.get().authenticate();
             currentUser.get().setSecret(generateSecret());
+            loggedUsers.addUser(currentUser.get().getNnumber(), currentUser.get());
+            System.out.println(loggedUsers.getUserType(currentUser.get().getNnumber()));
+            System.out.println(printKey(loggedUsers.getSecret(currentUser.get().getNnumber())));
+            loggedUsers.printDictionary();
+            System.out.println("==============================");
 
             return currentUser.map(ResponseEntity::ok)
                     .orElse(notFound().build());

@@ -36,8 +36,8 @@ public class User {
         return nnumber;
     }
 
-    public void setNnumber(String nnumber) {
-        this.nnumber = nnumber;
+    public void setNnumber(String nNumber) {
+        this.nnumber = nNumber;
     }
 
     public String getName() {
