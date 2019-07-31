@@ -8,9 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LoggedUsers {
-    public LoggedUsers() {
-    }
-
     private Map<String, User> loggedUsersDictionary = new HashMap<>();
 
     public void addUser(String nNumber, User user) {
@@ -32,9 +29,7 @@ public class LoggedUsers {
     }
 
     public void printDictionary() {
-        System.out.println(loggedUsersDictionary.size());
         for (Map.Entry<String, User> entry : loggedUsersDictionary.entrySet())
-            System.out.println("Key = " + entry.getKey() +
-                    ", Value = " + printKey(entry.getValue().getSecret()));
+            System.out.println("Key = " + entry.getKey() + ", Value = " + printKey(entry.getValue().getSecret()));
     }
 }

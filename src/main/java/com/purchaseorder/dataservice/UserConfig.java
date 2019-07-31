@@ -11,7 +11,6 @@ import static com.purchaseorder.dataservice.model.User.userType.*;
 
 @Configuration
 public class UserConfig {
-
     @Bean(name = "userList")
     public List<User> function() {
         List<User> userList = new ArrayList<>();

@@ -19,7 +19,7 @@ import static org.springframework.http.ResponseEntity.notFound;
 @RequestMapping("/auth")
 @CrossOrigin(origins = "http://localhost:4200")
 public class AuthenticationService {
-
+    LoggedUsers loggedUserDictionary = new LoggedUsers();
 
     private Optional<User> findUser(String nnumber) {
        return userList.stream()
@@ -38,20 +38,25 @@ public class AuthenticationService {
     @RequestMapping(
             method = RequestMethod.POST
     )
+
     public ResponseEntity<User> byName(@RequestBody LoginUser loginUser,
-                                       StoredPasswords storedPasswords,
-                                       LoggedUsers loggedUsers) {
+                                       StoredPasswords storedPasswords) {
 
         Optional<User> currentUser = findUser(loginUser.getNnumber());
 
-        if (storedPasswords.isValid(loginUser.getNnumber(), loginUser.getPassword())) {
+        if (storedPasswords.isValidPassword(loginUser.getNnumber(), loginUser.getPassword())) {
             currentUser.get().authenticate();
             currentUser.get().setSecret(generateSecret());
-            loggedUsers.addUser(currentUser.get().getNnumber(), currentUser.get());
-            System.out.println(loggedUsers.getUserType(currentUser.get().getNnumber()));
-            System.out.println(printKey(loggedUsers.getSecret(currentUser.get().getNnumber())));
-            loggedUsers.printDictionary();
-            System.out.println("==============================");
+
+            // store an user in hash map of logged users(key:value) nnumber: User
+            loggedUserDictionary.addUser(currentUser.get().getNnumber(), currentUser.get());
+
+            // printing for debugging
+            System.out.println("User Type: " + loggedUserDictionary.getUserType(currentUser.get().getNnumber()));
+            System.out.println("Secret: " + printKey(loggedUserDictionary.getSecret(currentUser.get().getNnumber())));
+            System.out.println("Listing all logged users...");
+            loggedUserDictionary.printDictionary();
+            System.out.println("====================================================================");
 
             return currentUser.map(ResponseEntity::ok)
                     .orElse(notFound().build());

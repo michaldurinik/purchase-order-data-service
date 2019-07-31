@@ -7,7 +7,6 @@ import java.security.SecureRandom;
 import java.util.Base64;
 
 public class SecretGenerator {
-
     public static void main(String[] args) {
         // for testing purposes
         generateSecret();
@@ -32,5 +31,3 @@ public class SecretGenerator {
         return Base64.getEncoder().encodeToString(encoded);
     }
 }
-
-

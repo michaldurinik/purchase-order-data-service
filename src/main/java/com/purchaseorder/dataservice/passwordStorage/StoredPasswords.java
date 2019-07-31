@@ -7,7 +7,6 @@ import java.util.Map;
 
 @Configuration
 public class StoredPasswords {
-
     public StoredPasswords() {
         this.populate();
     }
@@ -20,7 +19,7 @@ public class StoredPasswords {
         passwordDictionary.put("n3333333", "joe");
     }
 
-    public boolean isValid (String nnumber, String password) {
+    public boolean isValidPassword(String nnumber, String password) {
         if (passwordDictionary.containsKey(nnumber)) {
             return passwordDictionary.get(nnumber).equals(password);
         }
