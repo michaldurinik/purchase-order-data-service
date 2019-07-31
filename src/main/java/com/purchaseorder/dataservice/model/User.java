@@ -10,7 +10,7 @@ public class User {
     private String email;
     private boolean isAuthenticated = false;
     private Enum userType;
-    private String secret;
+    private SecretKey secret;
 
     public User(String nnumber, String name, String email, Boolean isAuthenticated, Enum userType) {
         this.nnumber = nnumber;
@@ -72,11 +72,11 @@ public class User {
         this.userType = userType;
     }
 
-    public String getSecret() {
+    public SecretKey getSecret() {
         return secret;
     }
 
-    public void setSecret(String secret) {
+    public void setSecret(SecretKey secret) {
         this.secret = secret;
     }
 }

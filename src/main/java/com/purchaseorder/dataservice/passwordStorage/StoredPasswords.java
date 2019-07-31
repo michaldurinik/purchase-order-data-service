@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-public class UserPasswords {
+public class StoredPasswords {
 
-    public UserPasswords() {
+    public StoredPasswords() {
         this.populate();
     }
 

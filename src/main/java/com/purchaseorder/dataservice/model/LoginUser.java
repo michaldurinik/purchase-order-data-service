@@ -1,6 +1,6 @@
 package com.purchaseorder.dataservice.model;
 
-public class UserLogin {
+public class LoginUser {
     private String nnumber;
     private String password;
 
