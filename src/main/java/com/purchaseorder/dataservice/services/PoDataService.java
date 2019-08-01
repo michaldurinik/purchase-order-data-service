@@ -1,26 +1,40 @@
 package com.purchaseorder.dataservice.services;
 
-import com.purchaseorder.dataservice.model.PurchaseOrder;
-import org.springframework.http.ResponseEntity;
+import com.purchaseorder.dataservice.model.PoData;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
 import java.util.List;
-import java.util.Optional;
-
-import static org.springframework.http.ResponseEntity.notFound;
 
 @RestController
 @RequestMapping("/po")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PoDataService {
+    private PurchaseOrderDatabase poDatabase = new PurchaseOrderDatabase();
 
-    @Resource(name = "poData")
-    private List<PurchaseOrder> poData;
+//    @Resource(name = "poData")
+//    private List<PurchaseOrder> poData;
+//
+//    @RequestMapping(method = RequestMethod.GET)
+//    public List<PurchaseOrder> allPurchaseOrders() {
+//        return poData;
+//    }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<PurchaseOrder> allPurchaseOrders() {
-        return poData;
+    public List allPurchaseOrders() {
+        return poDatabase.getAll();
+    }
+
+    @RequestMapping(
+        method = RequestMethod.POST,
+        consumes = "application/json"
+    )
+    public String addPoData(@RequestBody PoData poData) {
+        Integer poDbSize = poDatabase.getSize();
+        poDatabase.addToList(poData.getPurchaseOrder());
+        if (poDbSize + 1 == poDatabase.getSize()) {
+            return "Success, PO added to the dictionary";
+        }
+        return  "Failed to add PO data to the database";
     }
 
 //    @RequestMapping(

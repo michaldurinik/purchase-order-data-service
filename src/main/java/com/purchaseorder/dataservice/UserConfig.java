@@ -16,7 +16,7 @@ public class UserConfig {
         List<User> userList = new ArrayList<>();
         userList.add(new User("n3333333", "Joe King", "joe.king9087@gmail.com", false, Normal));
         userList.add(new User("n2222222", "David Duffy", "david.duffy45129@gmail.com", false, Approver));
-        userList.add(new User("n1111111", "karen", "Karen O\'Brien", false, Finance));
+        userList.add(new User("n1111111", "Karen O\'Brien", "karen.o.brien00934@gmail.com", false, Finance));
         return userList;
     }
 }

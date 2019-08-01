@@ -21,6 +21,7 @@ import static org.springframework.http.ResponseEntity.notFound;
 public class AuthenticationService {
     LoggedUsers loggedUserDictionary = new LoggedUsers();
 
+
     private Optional<User> findUser(String nnumber) {
        return userList.stream()
                 .filter(p -> p.getNnumber().equals(nnumber))
